@@ -38,6 +38,7 @@ if [ "$container" = "--start" ]; then
         if ! id -u $USER > /dev/null 2>&1; then
 		useradd $USER --uid $USERID --user-group --password $PASSWORD --home-dir /
 	fi
+	(echo $PASSWORD; echo $PASSWORD) | smbpasswd -s -a $USER;
 	/etc/init.d/samba start
 	echo "watching /var/log/samba/*"
 	tail -f /var/log/samba/*
